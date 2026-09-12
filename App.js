@@ -3117,30 +3117,57 @@ export default function App() {
 
   useEffect(() => {
     if (
-      typeof document !== 'undefined'
+      typeof document === 'undefined'
     ) {
-      let appleIcon =
-        document.querySelector(
-          'link[rel="apple-touch-icon"]'
-        );
-
-      if (!appleIcon) {
-        appleIcon =
-          document.createElement(
-            'link'
-          );
-
-        appleIcon.rel =
-          'apple-touch-icon';
-
-        document.head.appendChild(
-          appleIcon
-        );
-      }
-
-      appleIcon.href =
-        '/apple-touch-icon.png';
+      return;
     }
+
+    const iconUrl =
+      '/apple-touch-icon.png?v=2';
+
+    const existingIcons =
+      document.querySelectorAll(
+        'link[rel="apple-touch-icon"], link[rel="apple-touch-icon-precomposed"]'
+      );
+
+    existingIcons.forEach((icon) => {
+      icon.remove();
+    });
+
+    const appleIcon =
+      document.createElement('link');
+
+    appleIcon.rel =
+      'apple-touch-icon';
+
+    appleIcon.href = iconUrl;
+
+    appleIcon.setAttribute(
+      'sizes',
+      '180x180'
+    );
+
+    document.head.appendChild(
+      appleIcon
+    );
+
+    const precomposedIcon =
+      document.createElement('link');
+
+    precomposedIcon.rel =
+      'apple-touch-icon-precomposed';
+
+    precomposedIcon.href =
+      iconUrl;
+
+    precomposedIcon.setAttribute(
+      'sizes',
+      '180x180'
+    );
+
+    document.head.appendChild(
+      precomposedIcon
+    );
   }, []);
 
   /* LOAD */
