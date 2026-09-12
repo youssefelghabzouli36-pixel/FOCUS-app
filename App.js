@@ -5,6 +5,12 @@
 // @react-native-async-storage/async-storage
 // @expo/vector-icons
 
+import React, {
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+
 import {
   SafeAreaView,
   View,
@@ -16,13 +22,12 @@ import {
   Alert,
   StyleSheet,
 } from 'react-native';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 
 const NUTRITION_CHAT_STORAGE_KEY = 'FOCUS_nutrition_chat_v1';
 
-// Je computer waarop straks de Python-backend draait.
-// Zorg dat telefoon en computer op dezelfde wifi zitten.
 const API_BASE_URL = 'http://192.168.0.115:3000';
 
 const EVENTS_STORAGE_KEY = 'FOCUS_events_v5';
@@ -157,7 +162,6 @@ function footballLoad(type) {
 
 /* -------------------------------------------------------
    NUTRITION CONTEXT
-   Dit zat eerst per ongeluk binnen footballLoad().
 ------------------------------------------------------- */
 
 function getNutritionContext({
@@ -1630,8 +1634,6 @@ function NutritionScreen({
           )}
         </TouchableOpacity>
       </View>
-
-      {/* NUTRITION AI */}
 
       <View
         style={styles.nutritionAIHeader}
@@ -3110,6 +3112,36 @@ export default function App() {
     foodModalVisible,
     setFoodModalVisible,
   ] = useState(false);
+
+  /* APPLE / IPHONE HOME SCREEN ICON */
+
+  useEffect(() => {
+    if (
+      typeof document !== 'undefined'
+    ) {
+      let appleIcon =
+        document.querySelector(
+          'link[rel="apple-touch-icon"]'
+        );
+
+      if (!appleIcon) {
+        appleIcon =
+          document.createElement(
+            'link'
+          );
+
+        appleIcon.rel =
+          'apple-touch-icon';
+
+        document.head.appendChild(
+          appleIcon
+        );
+      }
+
+      appleIcon.href =
+        '/apple-touch-icon.png';
+    }
+  }, []);
 
   /* LOAD */
 
