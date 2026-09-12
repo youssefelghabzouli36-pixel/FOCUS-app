@@ -5,21 +5,6 @@
 // @react-native-async-storage/async-storage
 // @expo/vector-icons
 
-import React, { useEffect, useMemo, useState } from 'react';
-export default function App() {
-    useEffect(() => {
-    if (typeof document !== 'undefined') {
-      let appleIcon = document.querySelector('link[rel="apple-touch-icon"]');
-
-      if (!appleIcon) {
-        appleIcon = document.createElement('link');
-        appleIcon.rel = 'apple-touch-icon';
-        document.head.appendChild(appleIcon);
-      }
-
-      appleIcon.href = '/apple-touch-icon.png';
-    }
-  }, []);
 import {
   SafeAreaView,
   View,
